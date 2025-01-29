@@ -10,7 +10,7 @@ ENV HOME="/home/shinyuser"
 WORKDIR $HOME
 
 # Copia o arquivo .Rprofile (se existir)
-COPY .Rprofile $HOME/.Rprofile
+# COPY .Rprofile $HOME/.Rprofile
 
 # Instala os pacotes R necessários em lote
 RUN Rscript -e 'install.packages(c('downloader', 'dplyr', 'DT', 'jsonlite', 'lubridate', 'measurements', 'plyr', 'readr', 'readxl', 'rhandsontable', 'rnaturalearthdata', 'rvest', 'shiny', 'shinydashboard', 'shinydashboardPlus', 'shinyWidgets', 'sqldf', 'stringr','textclean', 'tidyr', 'writexl', 'glue', 'tidyverse', 'rmarkdown', 'knitr', 'data.table')), repos = "https://cran.rstudio.com")'
