@@ -41,15 +41,15 @@ library(dplyr)
 # library(plyr)
 library(readr)
 # library(readxl)
-library(rhandsontable) # tabela editavel
+# library(rhandsontable) # tabela editavel
 # library(rnaturalearthdata)
 # library(rvest)
 library(shiny)
-library(shinydashboard)
+# library(shinydashboard)
 # library(shinydashboardPlus)
-library(shinyWidgets) # botoes
+# library(shinyWidgets) # botoes
 # library(sqldf)
-library(stringr)
+# library(stringr)
 # library(textclean)
 # library(tidyr)
 # library(writexl)
