@@ -1,5 +1,6 @@
 # Escolhe a imagem base do R com Shiny e especifica a versão
-FROM rocker/shiny:4.2.2
+
+FROM rocker/shiny:latest
 
 # Cria um diretório para o usuário do Shiny Server
 RUN useradd -m -s /bin/bash shinyuser
@@ -26,9 +27,6 @@ USER shinyuser
 # Expõe a porta 3838
 EXPOSE 3838
 
-# Comando para rodar o Shiny Server
-CMD ["/usr/bin/shiny-server"]
-
-
-
+# Executa o aplicativo Shiny
+CMD ["R", "-e", "shiny::runApp('/srv/shiny', port=3838)"]
 
