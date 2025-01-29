@@ -10,7 +10,8 @@ ENV HOME="/home/shinyuser"
 WORKDIR $HOME
 
 # Instala os pacotes R necessários em lote
-RUN Rscript -e 'install.packages(c("downloader", "dplyr", "readr", "rhandsontable", "shiny", "shinydashboard", "shinyWidgets", "stringr", "textclean", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com", dependencies = TRUE)'
+# RUN Rscript -e 'install.packages(c("downloader", "dplyr", "readr", "rhandsontable", "shiny", "shinydashboard", "shinyWidgets", "stringr", "textclean", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com", dependencies = TRUE)'
+
 # Copia todos os arquivos do app para dentro do container
 COPY . $HOME
 
