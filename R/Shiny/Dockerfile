@@ -10,7 +10,7 @@ WORKDIR $HOME
 # RUN Rscript -e 'install.packages(c("downloader", "dplyr", "readr", "rhandsontable", "shiny", "shinydashboard", "shinyWidgets", "stringr", "textclean", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com", dependencies = FALSE)'
 
 # Instala os pacotes R necessários
-RUN Rscript -e 'install.packages(c("downloader", "dplyr", "readr", "shiny", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com", dependencies = TRUE)'
+RUN Rscript -e 'install.packages(c("downloader", "dplyr", "readr", "shiny", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com", dependencies = FALSE)'
 
 # Copia todos os arquivos do aplicativo para o diretório de trabalho do usuário
 COPY . $HOME
