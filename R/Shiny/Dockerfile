@@ -9,11 +9,8 @@ RUN useradd -m -s /bin/bash shinyuser
 ENV HOME="/home/shinyuser"
 WORKDIR $HOME
 
-# Copia o arquivo .Rprofile (se existir)
-# COPY .Rprofile $HOME/.Rprofile
-
 # Instala os pacotes R necessários em lote
-RUN Rscript -e 'install.packages(c("downloader", "dplyr", "jsonlite", "lubridate", "readr", "rhandsontable", "shiny", "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr", "textclean", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com", dependencies = TRUE)'
+RUN Rscript -e 'install.packages(c("downloader", "dplyr", "readr", "rhandsontable", "shiny", "shinydashboard", "shinyWidgets", "stringr", "textclean", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com", dependencies = TRUE)'
 # Copia todos os arquivos do app para dentro do container
 COPY . $HOME
 
