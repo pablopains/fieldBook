@@ -15,6 +15,8 @@ WORKDIR $HOME
 # Copia todos os arquivos do app para dentro do container
 COPY . $HOME
 
+COPY . /srv/shiny 
+
 # Define as permissões do usuário Shiny
 USER shinyuser
 
