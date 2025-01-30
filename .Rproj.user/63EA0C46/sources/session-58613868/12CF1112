@@ -3,7 +3,7 @@
     "path": "C:/fieldBook - github.com/fieldBook/Dockerfile",
     "project_path": "Dockerfile",
     "type": "dockerfile",
-    "hash": "103537969",
+    "hash": "3377115810",
     "contents": "",
     "dirty": false,
     "created": 1738217613298.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "40,0",
-        "scrollLine": "23"
+        "cursorPosition": "21,58",
+        "scrollLine": "10"
     },
     "folds": "",
-    "lastKnownWriteTime": 1738263369,
+    "lastKnownWriteTime": 1738263559,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1738263369827,
+    "last_content_update": 1738263559254,
     "read_only": false,
     "read_only_alternatives": []
 }

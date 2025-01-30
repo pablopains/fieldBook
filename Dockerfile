@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
 RUN Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/'))"
 
 # Instalar o pacote 'shiny'
-RUN Rscript -e "install.packages('shiny')"
+RUN Rscript -e "install.packages('shiny', dependences=TRUE)"
 
 # Copiar o aplicativo para o contêiner
 COPY . /app
