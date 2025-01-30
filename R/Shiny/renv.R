@@ -1,22 +1,21 @@
-# library(devtools)
 library(downloader)
 library(dplyr)
-# library(DT)
+library(DT)
 # library(jsonlite)
-# library(lubridate)
+library(lubridate)
 # library(measurements)
 # library(plyr)
 library(readr)
 # library(readxl)
-# library(rhandsontable) # tabela editavel
+library(rhandsontable) # tabela editavel
 # library(rnaturalearthdata)
 # library(rvest)
 library(shiny)
-# library(shinydashboard)
-# library(shinydashboardPlus)
-# library(shinyWidgets) # botoes
+library(shinydashboard)
+library(shinydashboardPlus)
+library(shinyWidgets) # botoes
 # library(sqldf)
-# library(stringr)
+library(stringr)
 # library(textclean)
 # library(tidyr)
 # library(writexl)
@@ -34,6 +33,8 @@ library(knitr)
 
 setwd('C:\\fieldBook - github.com\\fieldBook\\R\\Shiny')
 
+renv::init()
+renv::restore(clean = TRUE)
 
 
 renv::snapshot(packages = c("downloader", "dplyr", "readr", "shiny", "rmarkdown", "knitr"))
