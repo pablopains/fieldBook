@@ -33,6 +33,8 @@ library(knitr)
 
 setwd('C:\\fieldBook - github.com\\fieldBook')
 
+renv::restore()
+renv::clean()
 renv::init()
 renv::restore(clean = TRUE)
 
