@@ -31,6 +31,7 @@ library(knitr)
 
 
 
+
 setwd('C:\\fieldBook - github.com\\fieldBook')
 
 renv::restore()
@@ -49,7 +50,7 @@ writexl
 
 renv::install("bdc")
 
-renv::snapshot(packages = c("downloader", "dplyr", "readr", "shiny", "rmarkdown", "knitr", "DT", "lubridate", "rhandsontable",
+renv::snapshot(packages = c("renv","downloader", "dplyr", "readr", "shiny", "rmarkdown", "knitr", "DT", "lubridate", "rhandsontable",
                             "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr"))
 
 renv::restore()
