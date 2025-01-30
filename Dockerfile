@@ -1,21 +1,33 @@
-# Etapa 1: Usar imagem base com R
-FROM rocker/verse:4.4.2 AS base
-
-# Etapa 2: Definir o diretório de trabalho dentro do contêiner
+# Etapa 1: Instalar dependências do sistema e pacotes do R
+FROM rocker/verse:4.4.2 AS builder
 WORKDIR /app
 
-# Etapa 3: Instalar o renv e o pacote shiny
-RUN R -e 'install.packages("renv", repos = "https://cran.rstudio.com")'
+# Atualizar pacotes do sistema e instalar as dependências
+RUN apt-get update && apt-get install -y \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    libxml2-dev \
+    libgit2-dev \
+    libproj-dev \
+    libgdal-dev \
+    libgeos-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Etapa 4: Restaurar os pacotes do renv
-COPY renv.lock renv.lock
-RUN R -e 'renv::restore()'
+# Instalar o pacote 'shiny' e outras dependências necessárias
+RUN Rscript -e 'install.packages("shiny", repos = "https://cran.rstudio.com")'
 
-# Etapa 5: Copiar o código do aplicativo para dentro do contêiner
+# Etapa final: Copiar o app e rodar
+FROM rocker/verse:4.4.2
+WORKDIR /app
+
+# Copiar o aplicativo da pasta local para o diretório /app dentro do contêiner
 COPY . /app
 
-# Etapa 6: Expor a porta 3838 para o Shiny
+# Garantir permissões adequadas para os arquivos do aplicativo
+RUN chmod -R 755 /app
+
+# Expor a porta para o Shiny
 EXPOSE 3838
 
-# Etapa 7: Rodar o aplicativo com o comando CMD
-CMD ["R", "-e", "shiny::runApp('/app/app.R', host='0.0.0.0', port=3838)"]
+# Rodar o aplicativo
+CMD ["R", "-e", "shiny::runApp('/app')"]
