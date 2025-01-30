@@ -12,7 +12,8 @@ RUN apt-get update && \
     libproj-dev \
     libgdal-dev \
     libgeos-dev \
-    libudunits2-dev && \
+    libudunits2-dev \
+    libudunits2-0 && \  # Adicionando libudunits2-0 (runtime) para garantir a biblioteca compartilhada
     rm -rf /var/lib/apt/lists/*  # Limpar cache do apt
 
 # Instalar o pacote 'shiny' e outras dependências do R
