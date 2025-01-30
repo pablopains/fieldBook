@@ -1,34 +1,20 @@
-# Stage 0: Instalar renv
-FROM rocker/verse:4.4.2 AS renv_installer
-RUN Rscript -e 'install.packages(c("renv", "downloader", "dplyr", "DT", "lubridate","readr", "rhandsontable", "shiny", "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com")'
+# Stage 0: Criar imagem base e instalar pacotes essenciais
+FROM rocker/verse:4.4.2 AS base
+RUN Rscript -e 'install.packages(c("renv", "downloader", "dplyr", "DT", "lubridate", "readr", "rhandsontable", "shiny", "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com")'
 
-# Stage 1: Instalar dependências do sistema (se necessário)
-FROM rocker/verse:4.2.2 AS builder
+# Stage 1: Instalar dependências do sistema
+FROM base AS builder
 WORKDIR /app
-# Instalar pacotes do sistema (exemplo)
 RUN apt-get update && apt-get install -y libcurl4-openssl-dev
 
-# Stage 2: Configurar o ambiente renv
-FROM renv_installer AS renv
-WORKDIR /app
+# Stage 2: Restaurar pacotes do renv
 COPY renv.lock renv.lock
 RUN Rscript -e 'renv::restore()'
 
-# Stage final: Copiar o aplicativo e configurar o usuário
-FROM renv AS final
-WORKDIR /app
+# Stage final: Copiar o app e rodar
 COPY . .
-
-# Copiar .Rprofile (se existir)
-#COPY ..Rprofile .
-
-# Configurar usuário e porta
-#USER shinyuser
 EXPOSE 3838
-
-# Executar o aplicativo Shiny
 CMD ["R", "-e", "shiny::runApp('.')"]
-
 
 
 
