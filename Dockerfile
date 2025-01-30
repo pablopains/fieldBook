@@ -19,6 +19,8 @@ WORKDIR /app
 # Copiar o aplicativo da pasta local para o diretório /app dentro do contêiner
 COPY . /app
 
+RUN chmod -R 755 /app
+
 # Verificar o conteúdo do diretório /app
 RUN ls -l /app
 
