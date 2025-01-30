@@ -15,13 +15,9 @@ RUN apt-get update && apt-get install -y \
 # Stage final: Copiar o app e rodar
 FROM rocker/verse:4.4.2
 WORKDIR /app
-
-# Copiar todos os arquivos da raiz para o diretório /app do contêiner
 COPY --from=builder /app /app
-COPY . /app
-COPY app.R /app/app.R
 
-# Confirme que app.R ou server.R e ui.R estão no diretório correto
+# Verificar o conteúdo do diretório
 RUN ls -l /app
 
 EXPOSE 3838
