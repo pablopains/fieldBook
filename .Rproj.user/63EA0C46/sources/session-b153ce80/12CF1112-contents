@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     libproj-dev \
     libgdal-dev \
     libgeos-dev \
+    libudunits2-dev \  # Adicionando a biblioteca libudunits2
     && rm -rf /var/lib/apt/lists/*
 
 # Instalar o pacote 'shiny' e outras dependências do R
