@@ -29,31 +29,22 @@ library(knitr)
 
 
 
-
-
-
 setwd('C:\\fieldBook - github.com\\fieldBook')
 
-renv::restore()
-renv::clean()
-renv::init()
-renv::restore(clean = TRUE)
+renv::upgrade()
+renv::rehash()
 
 
 
-bdc                n         n        y   
-CoordinateCleaner  n         n        y   
-MazamaSpatialUtils n         n        y   
-renv               y         n        y   
-rsconnect          n         n        y   
-writexl  
 
-renv::install("bdc")
+unlink("renv", recursive = TRUE)  # Remove a pasta renv
+unlink("renv.lock")               # Remove o arquivo renv.lock
+renv::init()                      # Cria um novo ambiente
+install.packages(c("renv", "shiny", "downloader", "dplyr", "DT", "lubridate", "readr", "rhandsontable", "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr", "rmarkdown", "knitr"), dependencies=TRUE, repos="https://cran.rstudio.com")
+renv::snapshot()                   # Salva os pacotes no novo renv.lock
 
-renv::snapshot(packages = c("renv","downloader", "dplyr", "readr", "shiny", "rmarkdown", "knitr", "DT", "lubridate", "rhandsontable",
-                            "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr"))
 
-renv::restore()
+
 
 .libPaths(c("C:/Users/Pablo Hendrigo/R/library", .libPaths()))
 
