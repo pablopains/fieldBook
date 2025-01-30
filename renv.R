@@ -37,9 +37,10 @@ renv::init()
 renv::restore(clean = TRUE)
 
 
-renv::snapshot(packages = c("downloader", "dplyr", "readr", "shiny", "rmarkdown", "knitr"))
+renv::snapshot(packages = c("downloader", "dplyr", "readr", "shiny", "rmarkdown", "knitr", "DT", "lubridate", "rhandsontable",
+                            "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr"))
 
-
+renv::restore()
 
 .libPaths(c("C:/Users/Pablo Hendrigo/R/library", .libPaths()))
 

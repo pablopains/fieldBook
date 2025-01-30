@@ -17,9 +17,12 @@ FROM rocker/verse:4.4.2
 WORKDIR /app
 COPY --from=builder /app /app
 
+# Verificar o conteúdo do diretório
+RUN ls -l /app
 
 EXPOSE 3838
-CMD ["R", "-e", "shiny::runApp('.')"]
+CMD ["R", "-e", "shiny::runApp('/app')"]
+
 
 
 
