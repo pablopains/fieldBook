@@ -40,3 +40,4 @@ EXPOSE 3838
 
 # Rodar o aplicativo Shiny
 CMD ["R", "-e", "shiny::runApp('/app')"]
+
