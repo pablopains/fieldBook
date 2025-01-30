@@ -5,10 +5,17 @@ RUN Rscript -e 'install.packages(c("downloader", "dplyr", "DT", "lubridate", "re
 # Stage 1: Instalar dependências do sistema
 FROM base AS builder
 WORKDIR /app
-RUN apt-get update && apt-get install -y libcurl4-openssl-dev
+RUN apt-get update && apt-get install -y \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    libxml2-dev \
+    libgit2-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 # Stage final: Copiar o app e rodar
-COPY . .
+FROM rocker/verse:4.4.2
+WORKDIR /app
+COPY --from=builder /app /app
 EXPOSE 3838
 CMD ["R", "-e", "shiny::runApp('.')"]
 
