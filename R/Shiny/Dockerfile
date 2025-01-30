@@ -7,21 +7,16 @@ RUN useradd -m -s /bin/bash shinyuser
 ENV HOME="/home/shinyuser"
 WORKDIR $HOME
 
-# Instala os pacotes R necessários
-# RUN Rscript -e 'install.packages(c("downloader", "dplyr", "readr", "shiny", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com", dependencies = TRUE)'
-
+# Instala o renv
 RUN Rscript -e 'install.packages("renv", repos = "https://cran.rstudio.com", dependencies = FALSE)'
 
-#COPY renv.lock ./ 
-
-# Assuming .Rprofile is in the same directory as the Dockerfile
+# Copia o arquivo .Rprofile (se existir)
 COPY .Rprofile $HOME/.Rprofile
 
-# Assuming renv.lock is in the same directory as the Dockerfile
+# Copia o arquivo renv.lock
 COPY renv.lock $HOME/
-# Criar um projeto renv
-WORKDIR /app
-COPY renv.lock renv.lock
+
+# Restaura o ambiente do projeto
 RUN Rscript -e 'renv::restore()'
 
 # Copia todos os arquivos do aplicativo para o diretório de trabalho do usuário
