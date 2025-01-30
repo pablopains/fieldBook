@@ -17,6 +17,7 @@ FROM rocker/verse:4.4.2
 WORKDIR /app
 COPY --from=builder /app /app
 COPY app.R /app/app.R  # Assegura que o arquivo app.R seja copiado para o diretório correto
+
 EXPOSE 3838
 CMD ["R", "-e", "shiny::runApp('.')"]
 
