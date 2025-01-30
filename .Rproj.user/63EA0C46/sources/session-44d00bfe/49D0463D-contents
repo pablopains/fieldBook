@@ -39,6 +39,16 @@ renv::init()
 renv::restore(clean = TRUE)
 
 
+
+bdc                n         n        y   
+CoordinateCleaner  n         n        y   
+MazamaSpatialUtils n         n        y   
+renv               y         n        y   
+rsconnect          n         n        y   
+writexl  
+
+renv::install("bdc")
+
 renv::snapshot(packages = c("downloader", "dplyr", "readr", "shiny", "rmarkdown", "knitr", "DT", "lubridate", "rhandsontable",
                             "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr"))
 
