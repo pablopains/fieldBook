@@ -15,12 +15,17 @@ RUN apt-get update && apt-get install -y \
 # Stage final: Copiar o app e rodar
 FROM rocker/verse:4.4.2
 WORKDIR /app
-COPY --from=builder /app /app
 
-# Verificar o conteúdo do diretório
+# Copiar o aplicativo da pasta local para o diretório /app dentro do contêiner
+COPY . /app
+
+# Verificar o conteúdo do diretório /app
 RUN ls -l /app
 
+# Expor a porta para o Shiny
 EXPOSE 3838
+
+# Rodar o aplicativo
 CMD ["R", "-e", "shiny::runApp('/app')"]
 
 
