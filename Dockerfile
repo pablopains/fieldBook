@@ -1,26 +1,27 @@
-# Etapa 1: Criar imagem base e instalar os pacotes necessários
+# Etapa 1: Criar imagem base
 FROM rocker/verse:4.4.2 AS base
 
-#RUN Rscript -e 'install.packages(c("shiny", "downloader", "dplyr", "DT", "lubridate", "readr", "rhandsontable", "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr", "rmarkdown", "knitr"), dependencies=TRUE, repos="https://cran.rstudio.com")'
-RUN Rscript -e 'install.packages(c("shiny"), dependencies=TRUE, repos="https://cran.rstudio.com")'
+# Instalar dependências do sistema
+RUN apt-get update && apt-get install -y \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    libxml2-dev \
+    libgit2-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-
-# Etapa 2: Criar a imagem final e copiar os arquivos do app
-FROM base AS final
+# Criar diretório do app
 WORKDIR /app
 
-# Copiar apenas os arquivos do aplicativo
+# Copiar arquivos do R e renv
 COPY . /app
 
-# Definir permissões corretas
-RUN chmod -R 755 /app
+# Instalar o renv e restaurar pacotes
+RUN Rscript -e "install.packages('renv', repos='https://cran.rstudio.com')"
+RUN Rscript -e "renv::restore()"
 
-# Verificar se o pacote Shiny está instalado
-RUN R -e "if (!requireNamespace('shiny', quietly = TRUE)) install.packages('shiny', repos='https://cran.rstudio.com')"
-
-# Expor a porta para o Shiny
+# Expor porta do Shiny
 EXPOSE 3838
 
-# Comando para iniciar o aplicativo
+# Comando para iniciar o app
 CMD ["R", "-e", "shiny::runApp('/app')"]
 
