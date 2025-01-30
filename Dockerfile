@@ -1,14 +1,10 @@
-# Stage 0: Criar imagem base e instalar pacotes essenciais
+# Etapa 1: Criar a imagem base e instalar os pacotes R
 FROM rocker/verse:4.4.2 AS base
-
-# Instalar pacotes essenciais (incluindo o Shiny)
 RUN Rscript -e 'install.packages(c("shiny", "downloader", "dplyr", "DT", "lubridate", "readr", "rhandsontable", "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr", "rmarkdown", "knitr"), dependencies=TRUE, repos="https://cran.rstudio.com")'
 
-# Stage 1: Instalar dependências do sistema
+# Etapa 2: Instalar dependências do sistema
 FROM base AS builder
 WORKDIR /app
-
-# Instalar bibliotecas do sistema necessárias
 RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     libssl-dev \
@@ -16,22 +12,23 @@ RUN apt-get update && apt-get install -y \
     libgit2-dev && \
     rm -rf /var/lib/apt/lists/*
 
-# Stage final: Copiar o app e rodar
-FROM base  # Usa a imagem base já com os pacotes instalados
+# Etapa 3: Criar a imagem final e copiar os arquivos do app
+FROM rocker/verse:4.4.2  # ❌ NÃO USE "FROM base", pois "base" não é uma imagem oficial
 WORKDIR /app
 
-# Copiar o aplicativo Shiny para dentro do contêiner
+# Copiar apenas os arquivos do aplicativo
+COPY --from=builder /app /app
 COPY . /app
 
-# Garantir permissões adequadas
+# Permissões
 RUN chmod -R 755 /app
 
-# Verificar o conteúdo do diretório
+# Verificar os arquivos copiados
 RUN ls -l /app
 
-# Expor a porta padrão do Shiny
+# Expor a porta
 EXPOSE 3838
 
-# Rodar o aplicativo Shiny
+# Rodar o app
 CMD ["R", "-e", "shiny::runApp('/app')"]
 
