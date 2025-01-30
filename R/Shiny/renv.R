@@ -12,9 +12,9 @@ library(readr)
 # library(rnaturalearthdata)
 # library(rvest)
 library(shiny)
-library(shinydashboard)
-library(shinydashboardPlus)
-library(shinyWidgets) # botoes
+# library(shinydashboard)
+# library(shinydashboardPlus)
+# library(shinyWidgets) # botoes
 # library(sqldf)
 # library(stringr)
 # library(textclean)
