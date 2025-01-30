@@ -1,7 +1,9 @@
 # Etapa 1: Criar imagem base e instalar os pacotes necessários
 FROM rocker/verse:4.4.2 AS base
 
-RUN Rscript -e 'install.packages(c("shiny", "downloader", "dplyr", "DT", "lubridate", "readr", "rhandsontable", "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr", "rmarkdown", "knitr"), dependencies=TRUE, repos="https://cran.rstudio.com")'
+#RUN Rscript -e 'install.packages(c("shiny", "downloader", "dplyr", "DT", "lubridate", "readr", "rhandsontable", "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr", "rmarkdown", "knitr"), dependencies=TRUE, repos="https://cran.rstudio.com")'
+RUN Rscript -e 'install.packages(c("shiny"), dependencies=TRUE, repos="https://cran.rstudio.com")'
+
 
 # Etapa 2: Criar a imagem final e copiar os arquivos do app
 FROM base AS final
