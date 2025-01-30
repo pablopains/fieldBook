@@ -1,41 +1,40 @@
-# Etapa de construção para instalar as dependências e pacotes
-FROM rocker/verse:4.4.2 AS builder
+# get shiny serves plus tidyverse packages image
+FROM rocker/shiny-verse:latest
 
-# Definir o diretório de trabalho
-WORKDIR /app
-
-# Atualizar e instalar as dependências do sistema para pacotes R
+# system libraries of general use
 RUN apt-get update && apt-get install -y \
-    libcurl4-openssl-dev \
+    sudo \
+    pandoc \
+    pandoc-citeproc \
+    libcurl4-gnutls-dev \
+    libcairo2-dev \
+    libxt-dev \
     libssl-dev \
-    libxml2-dev \
-    libgit2-dev \
-    libproj-dev \
-    libgdal-dev \
-    libgeos-dev \
-    libudunits2-dev \
-    libfontconfig1-dev \
-    && rm -rf /var/lib/apt/lists/*
+    libssh2-1-dev
 
-# Instalar o pacote 'shiny' e suas dependências com dependencies = TRUE
-RUN Rscript -e "install.packages('shiny', repos = 'https://cloud.r-project.org/', dependencies = TRUE)" \
-    && Rscript -e "install.packages('devtools', repos = 'https://cloud.r-project.org/', dependencies = TRUE)" \
-    && Rscript -e "devtools::install_github('rstudio/shiny', dependencies = TRUE)"
+##Install R packages that are required--> were already succesfull
+RUN R -e "install.packages(c('shinydashboard','shiny', 'plotly', 'dplyr', 'magrittr'))"
 
-# Etapa final para rodar o app Shiny
-FROM rocker/verse:4.4.2
+#Heatmap related packages
+RUN R -e "install.packages('gpclib', type='source')"
+RUN R -e "install.packages('rgeos', type='source')"
+RUN R -e "install.packages('rgdal', type='source')"
 
-# Definir o diretório de trabalho
-WORKDIR /app
+# copy app to image
+COPY ./App /srv/shiny-server/App
 
-# Copiar o código do app local para o diretório /app no contêiner
-COPY . /app
+# add .conf file to image/container to preserve log file
+COPY ./shiny-server.conf  /etc/shiny-server/shiny-server.conf
 
-# Copiar os arquivos da etapa anterior (pacotes R e app)
-COPY --from=builder /app /app
 
-# Expor a porta para o app Shiny
+##When run image and create a container, this container will listen on port 3838
 EXPOSE 3838
 
-# Rodar o app Shiny
-CMD ["R", "-e", "shiny::runApp('/app')"]
+###Avoiding running as root --> run container as user instead
+# allow permission
+RUN sudo chown -R shiny:shiny /srv/shiny-server
+# execute in the following as user --> imortant to give permission before that step
+USER shiny
+
+##run app
+CMD ["/usr/bin/shiny-server.sh"]
