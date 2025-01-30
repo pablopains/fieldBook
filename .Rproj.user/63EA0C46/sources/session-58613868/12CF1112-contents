@@ -28,6 +28,9 @@ FROM rocker/verse:4.4.2
 # Definir o diretório de trabalho
 WORKDIR /app
 
+# Copiar o código do app local para o diretório /app no contêiner
+COPY . /app
+
 # Copiar os arquivos da etapa anterior (pacotes R e app)
 COPY --from=builder /app /app
 
