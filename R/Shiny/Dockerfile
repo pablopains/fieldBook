@@ -1,6 +1,6 @@
 # Stage 0: Instalar renv
 FROM rocker/verse:4.4.2 AS renv_installer
-RUN Rscript -e 'install.packages("renv", repos = "https://cran.rstudio.com")'
+RUN Rscript -e 'install.packages(c("renv", "downloader", "dplyr", "DT", "lubridate","readr", "rhandsontable", "shiny", "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com")'
 
 # Stage 1: Instalar dependências do sistema (se necessário)
 FROM rocker/verse:4.2.2 AS builder
