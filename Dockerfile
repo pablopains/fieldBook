@@ -1,38 +1,17 @@
-# Usar imagem base com suporte ao Shiny
-FROM rocker/shiny:4.4.2
+# Base R Shiny image
+FROM rocker/shiny
 
-# Definir diretório de trabalho
-WORKDIR /app
+# Make a directory in the container
+RUN mkdir /home/shiny-app
 
-#  Instalar pacotes do sistema necessários
-RUN apt-get update && apt-get install -y \
-    libcurl4-openssl-dev \
-    libssl-dev \
-    libxml2-dev \
-    libgit2-dev \
-    libproj-dev \
-    libgdal-dev \
-    libgeos-dev \
-    libudunits2-dev \
-    libharfbuzz-dev \
-    libfribidi-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Install R dependencies
+RUN R -e "install.packages(c('Shiny'))"
 
-#  Instalar pacotes do CRAN (com dependências)
-RUN R -e "install.packages(c('shiny', 'remotes', 'tidyverse', 'sf', 'devtools'), repos='https://cloud.r-project.org/', dependencies=TRUE)"
+# Copy the Shiny app code
+COPY app.R /home/shiny-app/app.R
 
-#  Instalar pacotes do GitHub (Exemplo: 'pablopains/fieldbook')
-RUN R -e "remotes::install_github('pablopains/fieldbook')"
+# Expose the application port
+EXPOSE 8180
 
-#  Copiar código do aplicativo para o contêiner
-COPY . /app
-
-#  Definir permissões
-RUN chmod -R 755 /app
-
-#  Expor porta para Railway
-EXPOSE 3838
-
-#  Definir o comando para iniciar o Shiny
-CMD ["R", "-e", "shiny::runApp('/app', host='0.0.0.0', port=3838)"]
-  
+# Run the R Shiny app
+CMD Rscript /home/shiny-app/app.R
