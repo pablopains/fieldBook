@@ -1,4 +1,4 @@
-FROM https://github.com/pablopains/fieldBook
+FROM https://github.com/pablopains/fieldbook
 
 ENV PORT=3838
 
