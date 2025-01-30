@@ -17,7 +17,7 @@ WORKDIR /app
 COPY . .
 
 # Copiar .Rprofile (se existir)
-COPY .Rprofile .
+#COPY .Rprofile .
 
 # Configurar usuário e porta
 USER shinyuser
