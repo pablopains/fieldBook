@@ -45,7 +45,7 @@ library(readr)
 # library(rnaturalearthdata)
 # library(rvest)
 library(shiny)
-# library(shinydashboard)
+library(shinydashboard)
 # library(shinydashboardPlus)
 # library(shinyWidgets) # botoes
 # library(sqldf)
