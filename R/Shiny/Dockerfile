@@ -23,7 +23,7 @@ COPY . .
 #COPY ..Rprofile .
 
 # Configurar usuário e porta
-USER shinyuser
+#USER shinyuser
 EXPOSE 3838
 
 # Executar o aplicativo Shiny
