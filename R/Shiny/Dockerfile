@@ -1,15 +1,15 @@
-# Baseada em uma imagem com R e renv pré-instalados
+# Stage 0: Instalar renv
+FROM rocker/verse:4.2.2 AS renv_installer
+RUN Rscript -e 'install.packages("renv", repos = "https://cran.rstudio.com")'
+
+# Stage 1: Instalar dependências do sistema (se necessário)
 FROM rocker/verse:4.2.2 AS builder
-
-# Stage 1: Instalar dependências adicionais (se necessário)
 WORKDIR /app
-#RUN Rscript -e 'install.packages(c("downloader", "dplyr", "readr", "shiny", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com", dependencies = TRUE)'
-
-
-RUN Rscript -e 'install.packages(c("renv"), repos = "https://cran.rstudio.com", dependencies = TRUE)'
+# Instalar pacotes do sistema (exemplo)
+RUN apt-get update && apt-get install -y libcurl4-openssl-dev
 
 # Stage 2: Configurar o ambiente renv
-FROM builder AS renv
+FROM renv_installer AS renv
 WORKDIR /app
 COPY renv.lock renv.lock
 RUN Rscript -e 'renv::restore()'
@@ -28,7 +28,6 @@ EXPOSE 3838
 
 # Executar o aplicativo Shiny
 CMD ["R", "-e", "shiny::runApp('.')"]
-
 
 
 
