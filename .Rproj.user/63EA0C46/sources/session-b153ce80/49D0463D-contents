@@ -43,7 +43,7 @@ renv::init()                      # Cria um novo ambiente
 install.packages(c("renv", "shiny", "downloader", "dplyr", "DT", "lubridate", "readr", "rhandsontable", "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr", "rmarkdown", "knitr"), dependencies=TRUE, repos="https://cran.rstudio.com")
 renv::snapshot()                   # Salva os pacotes no novo renv.lock
 
-
+library(sf)
 
 
 .libPaths(c("C:/Users/Pablo Hendrigo/R/library", .libPaths()))
