@@ -13,8 +13,8 @@ library(readr)
 # library(rvest)
 library(shiny)
 library(shinydashboard)
-# library(shinydashboardPlus)
-# library(shinyWidgets) # botoes
+library(shinydashboardPlus)
+library(shinyWidgets) # botoes
 # library(sqldf)
 # library(stringr)
 # library(textclean)
