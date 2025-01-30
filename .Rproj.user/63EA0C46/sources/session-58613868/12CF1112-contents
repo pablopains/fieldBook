@@ -4,7 +4,7 @@ FROM rocker/verse:4.4.2 AS builder
 # Definir o diretório de trabalho
 WORKDIR /app
 
-# Instalar dependências do sistema para pacotes R
+# Atualizar e instalar as dependências do sistema para pacotes R
 RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     libssl-dev \
@@ -13,16 +13,14 @@ RUN apt-get update && apt-get install -y \
     libproj-dev \
     libgdal-dev \
     libgeos-dev \
-    libudunits2-dev
+    libudunits2-dev \
+    libfontconfig1-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Garantir que o repositório CRAN seja configurado corretamente
-RUN Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/'))"
-
-# Instalar o pacote 'shiny'
-RUN Rscript -e "install.packages('shiny', dependences=TRUE)"
-
-# Copiar o aplicativo para o contêiner
-COPY . /app
+# Instalar o pacote 'shiny' e suas dependências com dependencies = TRUE
+RUN Rscript -e "install.packages('shiny', repos = 'https://cloud.r-project.org/', dependencies = TRUE)" \
+    && Rscript -e "install.packages('devtools', repos = 'https://cloud.r-project.org/', dependencies = TRUE)" \
+    && Rscript -e "devtools::install_github('rstudio/shiny', dependencies = TRUE)"
 
 # Etapa final para rodar o app Shiny
 FROM rocker/verse:4.4.2
