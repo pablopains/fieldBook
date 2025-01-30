@@ -3,7 +3,7 @@ FROM rocker/verse:4.2.2 AS builder
 
 # Stage 1: Instalar dependências adicionais (se necessário)
 WORKDIR /app
-RUN Rscript -e 'install.packages(c("downloader", "dplyr", "readr", "shiny", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com", dependencies = TRUE)'
+#RUN Rscript -e 'install.packages(c("downloader", "dplyr", "readr", "shiny", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com", dependencies = TRUE)'
 
 # Stage 2: Configurar o ambiente renv
 FROM builder AS renv
