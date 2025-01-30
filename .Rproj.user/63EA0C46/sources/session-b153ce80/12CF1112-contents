@@ -27,10 +27,10 @@ WORKDIR /app
 COPY . /app
 
 # Instalar renv para gerenciar dependências
-RUN Rscript -e 'install.packages("renv", repos = "https://cran.rstudio.com")'
+RUN Rscript -e 'install.packages("shiny","renv", repos = "https://cran.rstudio.com")'
 
 # Restaurar pacotes do R usando o renv
-RUN Rscript -e 'renv::restore()'
+RUN Rscript -e "renv::restore(prefer_binaries = TRUE)"
 
 # Garantir permissões adequadas para os arquivos do aplicativo
 RUN chmod -R 755 /app
