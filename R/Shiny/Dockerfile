@@ -12,6 +12,8 @@ WORKDIR $HOME
 
 RUN Rscript -e 'install.packages("renv", repos = "https://cran.rstudio.com", dependencies = TRUE)'
 
+COPY renv.lock ./ 
+
 # Criar um projeto renv
 WORKDIR /app
 COPY renv.lock renv.lock
