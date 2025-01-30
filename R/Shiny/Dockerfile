@@ -15,11 +15,16 @@ RUN apt-get update && apt-get install -y \
 # Stage final: Copiar o app e rodar
 FROM rocker/verse:4.4.2
 WORKDIR /app
+
+# Copiar arquivos do builder para o contêiner
 COPY --from=builder /app /app
 
+# Copiar a pasta 'r/shiny' para dentro do contêiner
+COPY r/shiny /app/r/shiny
 
 EXPOSE 3838
-CMD ["R", "-e", "shiny::runApp('.')"]
+CMD ["R", "-e", "shiny::runApp('/app/r/shiny')"]
+
 
 
 
