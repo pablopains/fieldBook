@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/pablopains/fieldBook
+FROM https://github.com/pablopains/fieldBook
 
 ENV PORT=3838
 
