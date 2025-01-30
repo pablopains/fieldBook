@@ -3,7 +3,8 @@ FROM rocker/verse:4.4.2 AS builder
 WORKDIR /app
 
 # Atualizar pacotes do sistema e instalar as dependências
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y \
     libcurl4-openssl-dev \
     libssl-dev \
     libxml2-dev \
@@ -11,8 +12,8 @@ RUN apt-get update && apt-get install -y \
     libproj-dev \
     libgdal-dev \
     libgeos-dev \
-    libudunits2-dev \  # Adicionando a biblioteca libudunits2
-    && rm -rf /var/lib/apt/lists/*
+    libudunits2-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 # Instalar o pacote 'shiny' e outras dependências do R
 RUN Rscript -e 'install.packages("shiny", repos = "https://cran.rstudio.com")'
