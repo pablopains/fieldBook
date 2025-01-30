@@ -37,7 +37,7 @@ setwd('C:\\fieldBook - github.com\\fieldBook')
 renv::restore()
 renv::clean()
 renv::init()
-renv::restore(clean = TRUE)
+  renv::restore(clean = TRUE)
 
 
 
