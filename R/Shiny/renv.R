@@ -40,3 +40,5 @@ renv::snapshot(packages = c("downloader", "dplyr", "readr", "shiny", "rmarkdown"
 
 
 
+.libPaths(c("C:/Users/Pablo Hendrigo/R/library", .libPaths()))
+

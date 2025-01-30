@@ -1,5 +1,5 @@
 # Stage 0: Instalar renv
-FROM rocker/verse:4.2.2 AS renv_installer
+FROM rocker/verse:4.4.0 AS renv_installer
 RUN Rscript -e 'install.packages("renv", repos = "https://cran.rstudio.com")'
 
 # Stage 1: Instalar dependências do sistema (se necessário)
