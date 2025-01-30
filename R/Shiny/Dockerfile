@@ -1,15 +1,11 @@
 # Stage 0: Criar imagem base e instalar pacotes essenciais
 FROM rocker/verse:4.4.2 AS base
-RUN Rscript -e 'install.packages(c("renv", "downloader", "dplyr", "DT", "lubridate", "readr", "rhandsontable", "shiny", "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com")'
+RUN Rscript -e 'install.packages(c("downloader", "dplyr", "DT", "lubridate", "readr", "rhandsontable", "shiny", "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com")'
 
 # Stage 1: Instalar dependências do sistema
 FROM base AS builder
 WORKDIR /app
 RUN apt-get update && apt-get install -y libcurl4-openssl-dev
-
-# Stage 2: Restaurar pacotes do renv
-COPY renv.lock renv.lock
-RUN Rscript -e 'renv::restore()'
 
 # Stage final: Copiar o app e rodar
 COPY . .
