@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     rm -rf /var/lib/apt/lists/*
 
 # Etapa 3: Criar a imagem final e copiar os arquivos do app
-FROM rocker/verse:4.4.2  # ❌ NÃO USE "FROM base", pois "base" não é uma imagem oficial
+FROM rocker/verse:4.4.2  # 
 WORKDIR /app
 
 # Copiar apenas os arquivos do aplicativo
