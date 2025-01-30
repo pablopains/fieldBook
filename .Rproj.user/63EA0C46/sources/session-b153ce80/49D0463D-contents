@@ -45,6 +45,7 @@ renv::snapshot()                   # Salva os pacotes no novo renv.lock
 
 library(sf)
 
+renv::restore()
 
 .libPaths(c("C:/Users/Pablo Hendrigo/R/library", .libPaths()))
 
