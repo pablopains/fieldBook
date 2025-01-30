@@ -1,10 +1,10 @@
-# Etapa de build para instalar as dependências
+# Etapa de construção para instalar as dependências e pacotes
 FROM rocker/verse:4.4.2 AS builder
 
 # Definir o diretório de trabalho
 WORKDIR /app
 
-# Instalar dependências do sistema
+# Instalar dependências do sistema para pacotes R
 RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     libssl-dev \
@@ -15,14 +15,13 @@ RUN apt-get update && apt-get install -y \
     libgeos-dev \
     libudunits2-dev
 
-# Configurar o repositório do CRAN para um mirror rápido
+# Garantir que o repositório CRAN seja configurado corretamente
 RUN Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/'))"
 
-# Instalar pacotes R necessários
-RUN Rscript -e "install.packages('shiny', repos = 'https://cran.rstudio.com')"
-RUN Rscript -e "install.packages('renv', repos = 'https://cran.rstudio.com')"
+# Instalar o pacote 'shiny'
+RUN Rscript -e "install.packages('shiny')"
 
-# Copiar arquivos do aplicativo para o contêiner
+# Copiar o aplicativo para o contêiner
 COPY . /app
 
 # Etapa final para rodar o app Shiny
@@ -31,10 +30,10 @@ FROM rocker/verse:4.4.2
 # Definir o diretório de trabalho
 WORKDIR /app
 
-# Copiar o ambiente do R e pacotes instalados da etapa anterior
+# Copiar os arquivos da etapa anterior (pacotes R e app)
 COPY --from=builder /app /app
 
-# Expor a porta padrão do Shiny
+# Expor a porta para o app Shiny
 EXPOSE 3838
 
 # Rodar o app Shiny
