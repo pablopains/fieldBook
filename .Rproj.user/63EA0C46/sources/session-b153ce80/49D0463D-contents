@@ -33,10 +33,6 @@ setwd('C:\\fieldBook - github.com\\fieldBook')
 
 renv::upgrade()
 renv::rehash()
-
-
-
-
 unlink("renv", recursive = TRUE)  # Remove a pasta renv
 unlink("renv.lock")               # Remove o arquivo renv.lock
 renv::init()                      # Cria um novo ambiente
