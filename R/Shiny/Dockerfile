@@ -10,7 +10,7 @@ WORKDIR $HOME
 # Instala os pacotes R necessários
 # RUN Rscript -e 'install.packages(c("downloader", "dplyr", "readr", "shiny", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com", dependencies = TRUE)'
 
-RUN Rscript -e 'install.packages("renv"), repos = "https://cran.rstudio.com", dependencies = TRUE)'
+RUN Rscript -e 'install.packages("renv", repos = "https://cran.rstudio.com", dependencies = TRUE)'
 
 # Criar um projeto renv
 WORKDIR /app
