@@ -1,11 +1,14 @@
 # Stage 0: Criar imagem base e instalar pacotes essenciais
 FROM rocker/verse:4.4.2 AS base
-#RUN Rscript -e 'install.packages(c("downloader", "dplyr", "DT", "lubridate", "readr", "rhandsontable", "shiny", "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com")'
-RUN Rscript -e 'install.packages("shiny", repos = "https://cran.rstudio.com")'
+
+# Instalar pacotes essenciais (incluindo o Shiny)
+RUN Rscript -e 'install.packages(c("shiny", "downloader", "dplyr", "DT", "lubridate", "readr", "rhandsontable", "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr", "rmarkdown", "knitr"), dependencies=TRUE, repos="https://cran.rstudio.com")'
 
 # Stage 1: Instalar dependências do sistema
 FROM base AS builder
 WORKDIR /app
+
+# Instalar bibliotecas do sistema necessárias
 RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     libssl-dev \
@@ -14,19 +17,21 @@ RUN apt-get update && apt-get install -y \
     rm -rf /var/lib/apt/lists/*
 
 # Stage final: Copiar o app e rodar
-FROM rocker/verse:4.4.2
+FROM base  # Usa a imagem base já com os pacotes instalados
 WORKDIR /app
 
-# Copiar o aplicativo da pasta local para o diretório /app dentro do contêiner
+# Copiar o aplicativo Shiny para dentro do contêiner
 COPY . /app
 
+# Garantir permissões adequadas
 RUN chmod -R 755 /app
 
-# Verificar o conteúdo do diretório /app
+# Verificar o conteúdo do diretório
 RUN ls -l /app
 
-# Expor a porta para o Shiny
+# Expor a porta padrão do Shiny
 EXPOSE 3838
 
-# Rodar o aplicativo
+# Rodar o aplicativo Shiny
 CMD ["R", "-e", "shiny::runApp('/app')"]
+
