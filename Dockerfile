@@ -12,8 +12,8 @@ RUN apt-get update && \
     libproj-dev \
     libgdal-dev \
     libgeos-dev \
-    libudunits2-dev && \
-    rm -rf /var/lib/apt/lists/*
+    libudunits2-dev \  # Adicionar libudunits2
+    && rm -rf /var/lib/apt/lists/*
 
 # Instalar o pacote 'shiny' e outras dependências do R
 RUN Rscript -e 'install.packages("shiny", repos = "https://cran.rstudio.com")'
