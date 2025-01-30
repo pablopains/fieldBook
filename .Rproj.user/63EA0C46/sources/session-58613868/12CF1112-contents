@@ -1,40 +1,13 @@
-# get shiny serves plus tidyverse packages image
-FROM rocker/shiny-verse:latest
+FROM rocker/shiny:latest
 
-# system libraries of general use
-RUN apt-get update && apt-get install -y \
-    sudo \
-    pandoc \
-    pandoc-citeproc \
-    libcurl4-gnutls-dev \
-    libcairo2-dev \
-    libxt-dev \
-    libssl-dev \
-    libssh2-1-dev
+RUN R -e "install.packages('renv', repos = c(CRAN = 'https://cloud.r-project.org'))"
 
-##Install R packages that are required--> were already succesfull
-RUN R -e "install.packages(c('shinydashboard','shiny', 'plotly', 'dplyr', 'magrittr'))"
+WORKDIR /srv/shiny-server/
 
-#Heatmap related packages
-RUN R -e "install.packages('gpclib', type='source')"
-RUN R -e "install.packages('rgeos', type='source')"
-RUN R -e "install.packages('rgdal', type='source')"
+COPY ./renv.lock ./renv.lock
 
-# copy app to image
-COPY ./App /srv/shiny-server/App
+COPY ./app ./app
 
-# add .conf file to image/container to preserve log file
-COPY ./shiny-server.conf  /etc/shiny-server/shiny-server.conf
+ENV RENV_PATHS_LIBRARY renv/library
 
-
-##When run image and create a container, this container will listen on port 3838
-EXPOSE 3838
-
-###Avoiding running as root --> run container as user instead
-# allow permission
-RUN sudo chown -R shiny:shiny /srv/shiny-server
-# execute in the following as user --> imortant to give permission before that step
-USER shiny
-
-##run app
-CMD ["/usr/bin/shiny-server.sh"]
+RUN R -e "renv::restore()"
