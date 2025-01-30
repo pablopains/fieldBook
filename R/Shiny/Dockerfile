@@ -12,8 +12,13 @@ WORKDIR $HOME
 
 RUN Rscript -e 'install.packages("renv", repos = "https://cran.rstudio.com", dependencies = FALSE)'
 
-COPY renv.lock ./ 
+#COPY renv.lock ./ 
 
+# Assuming .Rprofile is in the same directory as the Dockerfile
+COPY .Rprofile $HOME/.Rprofile
+
+# Assuming renv.lock is in the same directory as the Dockerfile
+COPY renv.lock $HOME/
 # Criar um projeto renv
 WORKDIR /app
 COPY renv.lock renv.lock
