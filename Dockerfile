@@ -5,8 +5,7 @@ FROM rocker/verse:4.4.2 AS base
 WORKDIR /app
 
 # Etapa 3: Instalar pacotes do R necessários
-# Exemplo com alguns pacotes comuns; ajuste conforme o seu projeto
-RUN Rscript -e 'install.packages(c("shiny"), repos = "https://cran.rstudio.com")'
+RUN R -e 'install.packages("shiny", repos = "https://cran.rstudio.com")'
 
 # Etapa 4: Copiar o código do aplicativo para dentro do contêiner
 COPY . /app
