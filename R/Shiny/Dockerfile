@@ -7,10 +7,15 @@ RUN useradd -m -s /bin/bash shinyuser
 ENV HOME="/home/shinyuser"
 WORKDIR $HOME
 
-# RUN Rscript -e 'install.packages(c("downloader", "dplyr", "readr", "rhandsontable", "shiny", "shinydashboard", "shinyWidgets", "stringr", "textclean", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com", dependencies = FALSE)'
-
 # Instala os pacotes R necessários
-RUN Rscript -e 'install.packages(c("downloader", "dplyr", "readr", "shiny", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com", dependencies = TRUE)'
+# RUN Rscript -e 'install.packages(c("downloader", "dplyr", "readr", "shiny", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com", dependencies = TRUE)'
+
+RUN Rscript -e 'install.packages("renv")'
+
+# Criar um projeto renv
+WORKDIR /app
+COPY renv.lock renv.lock
+RUN Rscript -e 'renv::restore()'
 
 # Copia todos os arquivos do aplicativo para o diretório de trabalho do usuário
 COPY . $HOME
