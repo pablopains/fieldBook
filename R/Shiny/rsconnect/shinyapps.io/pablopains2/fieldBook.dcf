@@ -1,0 +1,13 @@
+name: fieldBook
+title: fieldBook
+username: pablopains2
+account: pablopains2
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 13849793
+bundleId: 9720244
+url: https://pablopains2.shinyapps.io/fieldBook/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Dockerfile|fichas/FichaHerbario_1.doc|fichas/FichaHerbario_1.html|fichas/fieldBook_Fichas.zip|nixpacks.toml
