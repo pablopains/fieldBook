@@ -23,8 +23,8 @@ COPY . .
 #COPY ..Rprofile .
 
 # Configurar usuário e porta
-#USER shinyuser
-EXPOSE 3838
+USER shinyuser
+EXPOSE 4070
 
 # Executar o aplicativo Shiny
 CMD ["R", "-e", "shiny::runApp('.')"]
