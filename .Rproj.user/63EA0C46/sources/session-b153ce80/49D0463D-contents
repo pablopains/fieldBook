@@ -45,3 +45,4 @@ renv::restore()
 
 .libPaths(c("C:/Users/Pablo Hendrigo/R/library", .libPaths()))
 
+renv::remove("units")
