@@ -6,7 +6,7 @@ WORKDIR /srv/shiny-server/
 
 COPY ./renv.lock ./renv.lock
 
-COPY ./app ./app
+COPY . ./srv/shiny-server/
 
 ENV RENV_PATHS_LIBRARY renv/library
 
