@@ -1,6 +1,6 @@
 # Stage 0: Criar imagem base e instalar pacotes essenciais
 FROM rocker/verse:4.4.2 AS base
-RUN Rscript -e 'install.packages(c("downloader", "dplyr", "DT", "lubridate", "readr", "rhandsontable", "shiny", "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr", "rmarkdown", "knitr"), repos = "https://cloud.r-project.org")'
+RUN Rscript -e 'install.packages(c("downloader", "dplyr", "DT", "lubridate", "readr", "rhandsontable", "shiny", "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr", "rmarkdown", "knitr"), repos = "https://cran.rstudio.com")'
 
 # Stage 1: Instalar dependências do sistema
 FROM base AS builder
