@@ -13,15 +13,21 @@ RUN apt-get update && apt-get install -y \
     libgeos-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Instalar o pacote 'shiny' e outras dependências necessárias
+# Instalar o pacote 'shiny' e outras dependências do R
 RUN Rscript -e 'install.packages("shiny", repos = "https://cran.rstudio.com")'
 
-# Etapa final: Copiar o app e rodar
+# Etapa 2: Copiar o código do aplicativo e instalar pacotes do renv
 FROM rocker/verse:4.4.2
 WORKDIR /app
 
-# Copiar o aplicativo da pasta local para o diretório /app dentro do contêiner
+# Copiar o código do aplicativo para o contêiner
 COPY . /app
+
+# Instalar renv para gerenciar dependências
+RUN Rscript -e 'install.packages("renv", repos = "https://cran.rstudio.com")'
+
+# Restaurar pacotes do R usando o renv
+RUN Rscript -e 'renv::restore()'
 
 # Garantir permissões adequadas para os arquivos do aplicativo
 RUN chmod -R 755 /app
@@ -29,5 +35,5 @@ RUN chmod -R 755 /app
 # Expor a porta para o Shiny
 EXPOSE 3838
 
-# Rodar o aplicativo
+# Rodar o aplicativo Shiny
 CMD ["R", "-e", "shiny::runApp('/app')"]
