@@ -29,7 +29,7 @@ library(knitr)
 
 
 
-setwd('C:\\fieldBook - github.com\\fieldBook')
+
 unlink("renv", recursive = TRUE)
 unlink("renv.lock")
 renv::init()                      # Cria um novo ambiente

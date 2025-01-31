@@ -19,13 +19,20 @@ WORKDIR /home/shiny-app
 COPY . /home/shiny-app
 
 # Instalar pacotes necessários
-RUN R -e "install.packages('shiny', repos='https://cran.rstudio.com/')"
-RUN R -e "install.packages('dplyr', repos='https://cran.rstudio.com/')"
-RUN R -e "install.packages('readr', repos='https://cran.rstudio.com/')"
-RUN R -e "install.packages('shinydashboard', repos='https://cran.rstudio.com/')"
-RUN R -e "install.packages('stringr', repos='https://cran.rstudio.com/')"
-RUN R -e "install.packages('rmarkdown', repos='https://cran.rstudio.com/')"
-RUN R -e "install.packages('knitr', repos='https://cran.rstudio.com/')"
+#RUN R -e "install.packages('shiny', repos='https://cran.rstudio.com/')"
+#RUN R -e "install.packages('dplyr', repos='https://cran.rstudio.com/')"
+#RUN R -e "install.packages('readr', repos='https://cran.rstudio.com/')"
+#RUN R -e "install.packages('shinydashboard', repos='https://cran.rstudio.com/')"
+#RUN R -e "install.packages('stringr', repos='https://cran.rstudio.com/')"
+#RUN R -e "install.packages('rmarkdown', repos='https://cran.rstudio.com/')"
+#UN R -e "install.packages('knitr', repos='https://cran.rstudio.com/')"
+
+
+RUN R -e "install.packages('renv', repos='https://cran.rstudio.com/')"
+COPY renv.lock /home/shiny-app/
+RUN R -e "renv::restore()"
+
+
 # Expor a porta do Shiny
 EXPOSE 3838
 
