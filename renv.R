@@ -33,7 +33,7 @@ library(knitr)
 unlink("renv", recursive = TRUE)
 unlink("renv.lock")
 renv::init()                      # Cria um novo ambiente
-install.packages(c('shiny', 'dplyr', 'readr',  'shinydashboard', 'stringr', 'rmarkdown', 'knitr'), dependencies=TRUE, repos="https://cran.rstudio.com")
+install.packages(c('shiny', 'dplyr', 'readr',  'shinydashboard', 'stringr', 'rmarkdown', 'knitr', 'rhandsontable'), dependencies=TRUE, repos="https://cran.rstudio.com")
 renv::snapshot()
 renv::status()
 

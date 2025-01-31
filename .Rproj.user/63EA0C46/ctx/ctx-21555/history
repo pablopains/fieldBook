@@ -1,0 +1,4 @@
+getwd()
+unlink("renv", recursive = TRUE)
+unlink("renv.lock")
+renv::init()                      # Cria um novo ambiente
