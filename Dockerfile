@@ -8,8 +8,7 @@ WORKDIR /home/shiny-app
 COPY . /home/shiny-app
 
 # Instalar pacotes necessários
-RUN R -e "install.packages(c('shiny', 'downloader', 'dplyr', 'DT','lubridate', 'readr', 'rhandsontable',
-'shinydashboard', 'shinydashboardPlus', 'shinyWidgets', 'stringr', 'rmarkdown', 'knitr'), dependencies=TRUE)"
+RUN R -e "install.packages(c('shiny', 'downloader', 'dplyr', 'DT','lubridate', 'readr', 'rhandsontable', 'shinydashboard', 'shinydashboardPlus', 'shinyWidgets', 'stringr', 'rmarkdown', 'knitr'), dependencies=TRUE)"
 
 # Expor a porta do Shiny
 EXPOSE 3838
