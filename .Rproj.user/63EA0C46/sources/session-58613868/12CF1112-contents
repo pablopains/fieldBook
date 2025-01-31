@@ -1,20 +1,14 @@
-# Base R Shiny image
-FROM rocker/shiny
+#  Usar a imagem base do Shiny que já tem o pacote instalado
+FROM rocker/shiny:4.4.2
 
-# Make a directory in the container
-RUN mkdir /home/shiny-app
+#  Definir diretório de trabalho
+WORKDIR /home/shiny-app
 
-# Install R dependencies
-RUN R -e "install.packages(c('Shiny'))"
-
-# Copy the Shiny app code
+#  Copiar o código do aplicativo para o contêiner
 COPY app.R /home/shiny-app/app.R
 
-# Expose the application port
-EXPOSE 3254
+#  Expor a porta padrão do Shiny (Railway usa variável de ambiente)
+EXPOSE 3838
 
-# Rodar o app Shiny
-CMD ["R", "-e", "shiny::runApp('/home/shiny-app/app.R')"]
-
-
-
+#  Rodar o aplicativo Shiny
+CMD ["R", "-e", "shiny::runApp('/home/shiny-app', host='0.0.0.0', port=3838)"]
