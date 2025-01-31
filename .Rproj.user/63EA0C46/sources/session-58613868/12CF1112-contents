@@ -1,17 +1,17 @@
-# Usa a imagem base do R com Shiny
+# Usar uma imagem base com R e Shiny pré-instalados
 FROM rocker/shiny:latest
 
-# Definir diretório de trabalho
-WORKDIR /srv/shiny-server
+# Definir o diretório de trabalho dentro do contêiner
+WORKDIR /home/shiny-app
 
-# Instalar pacotes necessários do R
-RUN R -e "install.packages(c('shiny', 'remotes'), dependencies=TRUE)"
+# Copiar o código do app para o contêiner
+COPY . /home/shiny-app
 
-# Copiar o app para dentro do contêiner
-COPY app.R /srv/shiny-server/
+# Instalar pacotes necessários
+RUN R -e "install.packages(c('shiny'), dependencies=TRUE)"
 
-# Expor a porta 8080 para o Railway
-EXPOSE 8080
+# Expor a porta do Shiny
+EXPOSE 3838
 
-# Comando para rodar o app no Railway
-CMD ["R", "-e", "shiny::runApp('/srv/shiny-server', host='0.0.0.0', port=8080)"]
+# Definir comando para rodar o app
+CMD ["R", "-e", "shiny::runApp('/home/shiny-app', host='0.0.0.0', port=3838)"]
