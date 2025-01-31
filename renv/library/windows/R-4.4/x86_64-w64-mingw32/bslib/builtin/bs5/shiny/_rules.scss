@@ -130,9 +130,12 @@ $bslib-checkbox-radio-margin-right: 0.35em !default;
 @if $bslib-dashboard-design {
 
   :root {
+    --bslib-dashboard-sidebar-bg: var(--#{$prefix}body-bg);
+    --bslib-dashboard-sidebar-main-bg: var(--#{$prefix}body-bg);
     --bslib-dashboard-main-bg: rgb(247, 247, 247);
     --#{$prefix}card-border-color: var(--bslib-dashboard-border-color-translucent, var(--#{$prefix}border-color-translucent));
     --bslib-dashboard-card-header-font-weight: #{$font-weight-semibold};
+    --bslib-sidebar-bg: RGBA(var(--#{$prefix}body-bg-rgb), 0.05);
   }
 
   @include color-mode(dark) {
@@ -173,15 +176,10 @@ $bslib-checkbox-radio-margin-right: 0.35em !default;
     background-color: var(--bslib-dashboard-main-bg);
   }
 
-  .navbar {
-    // Add border-bottom for general navbars (primarily in non-bslib contexts)
-    border-bottom: $card-border-width solid $card-border-color;
-  }
-
   .bslib-page-navbar, .bslib-page-dashboard {
-    // Inside bslib we only add the border on the top-level navbar
-    .navbar {
-      border-bottom: none;
+    > .navbar {
+      --bslib-navbar-default-bg: var(--#{$prefix}body-bg);
+      --bslib-navbar-inverse-bg: var(--#{$prefix}body-color);
     }
 
     > .navbar + div {
@@ -198,10 +196,8 @@ $bslib-checkbox-radio-margin-right: 0.35em !default;
   }
 
   .bslib-page-sidebar {
-    @if not $navbar-bg {
-      --bslib-page-sidebar-title-bg: var(--#{$prefix}body-bg);
-      --bslib-page-sidebar-title-color: var(--#{$prefix}body-color);
-    }
+    --bslib-page-sidebar-title-bg: var(--#{$prefix}body-bg);
+    --bslib-page-sidebar-title-color: var(--#{$prefix}body-color);
 
     .bslib-page-title {
       border-color: var(--#{$prefix}border-color-translucent);
@@ -216,7 +212,7 @@ $bslib-checkbox-radio-margin-right: 0.35em !default;
   --#{$prefix}link-hover-color: rgba(var(--bs-body-color-rgb), 0.8);
   --#{$prefix}nav-link-font-size: 0.875rem;
 
-  .nav-link:not(:empty) {
+  .nav-link {
     padding-left: 5px !important;
     padding-right: 5px !important;
 

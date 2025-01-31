@@ -23,8 +23,9 @@ named_colors <- c(
 )
 
 gc <- expand.grid(named_colors, named_colors)
-gc <- gc[gc$Var1 != gc$Var2, ]
+gc <- gc[gc$Var1 != gc$Var2,]
 gradient_classes <- sprintf("bg-gradient-%s-%s", gc$Var1, gc$Var2)
+
 
 all_themes <- c(
   "Default" = "",
