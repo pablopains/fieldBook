@@ -36,7 +36,8 @@ renv::rehash()
 unlink("renv", recursive = TRUE)  # Remove a pasta renv
 unlink("renv.lock")               # Remove o arquivo renv.lock
 renv::init()                      # Cria um novo ambiente
-install.packages(c("renv", "shiny", "downloader", "dplyr", "DT", "lubridate", "readr", "rhandsontable", "shinydashboard", "shinydashboardPlus", "shinyWidgets", "stringr", "rmarkdown", "knitr"), dependencies=TRUE, repos="https://cran.rstudio.com")
+
+install.packages(c('shiny', 'dplyr', 'readr',  'shinydashboard', 'stringr', 'rmarkdown', 'knitr'), dependencies=TRUE, repos="https://cran.rstudio.com")
 renv::activate()
 renv::snapshot()                   # Salva os pacotes no novo renv.lock
 
