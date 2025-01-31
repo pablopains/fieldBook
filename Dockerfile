@@ -1,6 +1,17 @@
 # Usar uma imagem base com R e Shiny pré-instalados
 FROM rocker/shiny:latest
 
+RUN apt-get update && apt-get install -y \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    libxml2-dev \
+    libgit2-dev \
+    libudunits2-dev \
+    libgdal-dev \
+    libgeos-dev \
+    libproj-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 # Definir o diretório de trabalho dentro do contêiner
 WORKDIR /home/shiny-app
 
@@ -8,12 +19,15 @@ WORKDIR /home/shiny-app
 COPY . /home/shiny-app
 
 # Instalar pacotes necessários
-RUN R -e "install.packages(c('shiny', 'dplyr', 'readr',  'shinydashboard', 'stringr', 'rmarkdown', 'knitr'), dependencies=TRUE)"
-#RUN R -e "install.packages(c('shiny'), dependencies=TRUE)"
-
+RUN R -e "install.packages('shiny', repos='https://cran.rstudio.com/')"
+RUN R -e "install.packages('dplyr', repos='https://cran.rstudio.com/')"
+RUN R -e "install.packages('readr', repos='https://cran.rstudio.com/')"
+RUN R -e "install.packages('shinydashboard', repos='https://cran.rstudio.com/')"
+RUN R -e "install.packages('stringr', repos='https://cran.rstudio.com/')"
+RUN R -e "install.packages('rmarkdown', repos='https://cran.rstudio.com/')"
+RUN R -e "install.packages('knitr', repos='https://cran.rstudio.com/')"
 # Expor a porta do Shiny
 EXPOSE 3838
 
 # Definir comando para rodar o app
 CMD ["R", "-e", "shiny::runApp('/home/shiny-app', host='0.0.0.0', port=3838)"]
-  
