@@ -30,6 +30,15 @@ library(knitr)
 
 
 setwd('C:\\fieldBook - github.com\\fieldBook')
+unlink("renv", recursive = TRUE)
+unlink("renv.lock")
+renv::init()                      # Cria um novo ambiente
+install.packages(c('shiny', 'dplyr', 'readr',  'shinydashboard', 'stringr', 'rmarkdown', 'knitr'), dependencies=TRUE, repos="https://cran.rstudio.com")
+renv::snapshot()
+renv::status()
+
+
+
 
 renv::upgrade()
 renv::rehash()
@@ -39,7 +48,11 @@ renv::init()                      # Cria um novo ambiente
 
 install.packages(c('shiny', 'dplyr', 'readr',  'shinydashboard', 'stringr', 'rmarkdown', 'knitr'), dependencies=TRUE, repos="https://cran.rstudio.com")
 renv::activate()
+
 renv::snapshot()                   # Salva os pacotes no novo renv.lock
+
+
+renv::rebuild()
 
 library(sf)
 
