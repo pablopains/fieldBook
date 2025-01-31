@@ -15,6 +15,8 @@ RUN apt-get update && apt-get install -y \
 
 # Instalar pacotes do R
 #RUN R -e "install.packages(c('shiny', 'downloader', 'dplyr', 'DT', 'lubridate', 'readr', 'rhandsontable', 'shinydashboard', 'shinydashboardPlus', 'shinyWidgets', 'stringr', 'rmarkdown', 'knitr'), dependencies=TRUE, repos='https://cran.rstudio.com/')"
+RUN R -e "install.packages(c('shiny'), dependencies=TRUE, repos='https://cran.rstudio.com/')"
+
 
 # Criar diretório do aplicativo
 WORKDIR /home/shiny-app
