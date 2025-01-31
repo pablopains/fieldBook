@@ -8,7 +8,7 @@ WORKDIR /home/shiny-app
 RUN R -e "install.packages(c('shiny', 'remotes'), dependencies=TRUE)"
 
 # Clonar código do GitHub (se necessário)
-RUN R -e "remotes::install_github('pablopains/fieldbook')"
+#RUN R -e "remotes::install_github('pablopains/fieldbook')"
 
 # Copiar os arquivos do app para dentro do contêiner
 COPY app.R /home/shiny-app/
