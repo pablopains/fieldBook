@@ -1,14 +1,20 @@
-#  Usar a imagem base do Shiny que já tem o pacote instalado
-FROM rocker/shiny:4.4.2
+# Base do R + Shiny
+FROM rocker/shiny:latest
 
-#  Definir diretório de trabalho
+# Definir diretório de trabalho
 WORKDIR /home/shiny-app
 
-#  Copiar o código do aplicativo para o contêiner
-COPY app.R /home/shiny-app/app.R
+# Instalar pacotes necessários do R
+RUN R -e "install.packages(c('shiny', 'remotes'), dependencies=TRUE)"
 
-#  Expor a porta padrão do Shiny (Railway usa variável de ambiente)
-EXPOSE 3838
+# Clonar código do GitHub (se necessário)
+RUN R -e "remotes::install_github('pablopains/fieldbook')"
 
-#  Rodar o aplicativo Shiny
-CMD ["R", "-e", "shiny::runApp('/home/shiny-app', host='0.0.0.0', port=3838)"]
+# Copiar os arquivos do app para dentro do contêiner
+COPY app.R /home/shiny-app/
+
+# Expor a porta correta para o Railway
+EXPOSE 8080
+
+# Rodar o aplicativo
+CMD ["R", "-e", "shiny::runApp('/home/shiny-app', host='0.0.0.0', port=8080)"]
