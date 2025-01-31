@@ -1,7 +1,7 @@
-# Usar a imagem base do Shiny
+# Usar imagem base do Shiny
 FROM rocker/shiny:latest
 
-# Atualizar e instalar dependências do sistema
+# Atualizar pacotes do sistema
 RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     libssl-dev \
@@ -13,19 +13,18 @@ RUN apt-get update && apt-get install -y \
     libproj-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Instalar pacotes do R
-RUN R -e "install.packages(c('shiny', 'downloader', 'dplyr', 'DT', 'lubridate', 'readr', 'rhandsontable', 'shinydashboard', 'shinydashboardPlus', 'shinyWidgets', 'stringr', 'rmarkdown', 'knitr'), dependencies=TRUE, repos='https://cran.rstudio.com/')"
-
-# Criar diretório do aplicativo
+# Definir diretório de trabalho
 WORKDIR /home/shiny-app
+
+# Copiar arquivos do app para o container
 COPY . /home/shiny-app
+
+# Instalar {renv} e restaurar pacotes do R
+RUN R -e "install.packages('renv', repos='https://cran.rstudio.com/')"
+RUN R -e "renv::restore()"
 
 # Expor a porta do Shiny
 EXPOSE 3838
 
 # Rodar o aplicativo
 CMD ["R", "-e", "shiny::runApp('/home/shiny-app')"]
-
-
-# Instalar pacotes necessários
-#RUN R -e "install.packages(c('shiny', 'dplyr', 'readr', 'shinydashboard', 'stringr', 'rmarkdown', 'knitr'), dependencies=TRUE, repos='https://cran.rstudio.com/')"
