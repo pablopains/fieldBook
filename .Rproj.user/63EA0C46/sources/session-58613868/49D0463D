@@ -3,9 +3,9 @@
     "path": "C:/fieldBook - github.com/fieldBook/renv.R",
     "project_path": "renv.R",
     "type": "r_source",
-    "hash": "0",
+    "hash": "1015122399",
     "contents": "",
-    "dirty": true,
+    "dirty": false,
     "created": 1738218426975.0,
     "source_on_save": false,
     "relative_order": 2,
@@ -16,11 +16,11 @@
         "scrollLine": "15"
     },
     "folds": "",
-    "lastKnownWriteTime": 1738255737,
+    "lastKnownWriteTime": 1738345232,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1738256986924,
+    "last_content_update": 1738345232337,
     "read_only": false,
     "read_only_alternatives": []
 }

@@ -1,29 +1,21 @@
-# Usar a imagem base do Shiny
+# Usar uma imagem base com R e Shiny pré-instalados
 FROM rocker/shiny:latest
 
-# Atualizar e instalar dependências do sistema
-RUN apt-get update && apt-get install -y \
-    libcurl4-openssl-dev \
-    libssl-dev \
-    libxml2-dev \
-    libgit2-dev \
-    libudunits2-dev \
-    libgdal-dev \
-    libgeos-dev \
-    libproj-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Instalar pacotes do R
-#RUN R -e "install.packages(c('shiny', 'downloader', 'dplyr', 'DT', 'lubridate', 'readr', 'rhandsontable', 'shinydashboard', 'shinydashboardPlus', 'shinyWidgets', 'stringr', 'rmarkdown', 'knitr'), dependencies=TRUE, repos='https://cran.rstudio.com/')"
-RUN R -e "install.packages(c('shiny'), dependencies=TRUE, repos='https://cran.rstudio.com/')"
-
-
-# Criar diretório do aplicativo
+# Definir o diretório de trabalho dentro do contêiner
 WORKDIR /home/shiny-app
+
+# Copiar o código do app para o contêiner
 COPY . /home/shiny-app
+
+# Instalar pacotes necessários
+RUN R -e "install.packages(c('shiny'), dependencies=TRUE)"
 
 # Expor a porta do Shiny
 EXPOSE 3838
 
-# Rodar o aplicativo
-CMD ["R", "-e", "shiny::runApp('/home/shiny-app')"]
+# Definir comando para rodar o app
+CMD ["R", "-e", "shiny::runApp('/home/shiny-app', host='0.0.0.0', port=3838)"]
+
+
+# Instalar pacotes do R
+#RUN R -e "install.packages(c('shiny', 'dplyr', 'readr', 'rhandsontable', 'shinydashboard', 'shinydashboardPlus', 'shinyWidgets', 'stringr', 'rmarkdown', 'knitr'), dependencies=TRUE, repos='https://cran.rstudio.com/')"
