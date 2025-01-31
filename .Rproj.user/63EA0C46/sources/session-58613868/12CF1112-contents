@@ -6,6 +6,7 @@ WORKDIR /home/shiny-app
 
 # Copiar o código do app para o contêiner
 COPY . /home/shiny-app
+COPY . /home/shiny-app
 
 # Instalar pacotes necessários
 #RUN R -e "install.packages(c('shiny', 'dplyr', 'readr',  'shinydashboard', 'stringr', 'rmarkdown', 'knitr'), dependencies=TRUE)"
