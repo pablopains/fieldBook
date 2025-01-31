@@ -7,17 +7,14 @@ RUN mkdir /home/shiny-app
 # Install R dependencies
 RUN R -e "install.packages(c('Shiny'))"
 
-# Definir o diretório de trabalho
-WORKDIR /app
+# Copy the Shiny app code
+COPY app.R /home/shiny-app/app.R
 
-# Copiar o código do app local para o diretório /app no contêiner
-COPY . /app
-
-# Expor a porta para o app Shiny
+# Expose the application port
 EXPOSE 3254
 
 # Rodar o app Shiny
-CMD ["R", "-e", "shiny::runApp('/app')"]
+CMD ["R", "-e", "shiny::runApp('/home/shiny-app/app.R')"]
 
 
 
