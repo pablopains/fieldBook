@@ -1,7 +1,10 @@
-# Usar imagem base do Shiny
+# Usar imagem base do Shiny com R
 FROM rocker/shiny:latest
 
-# Atualizar pacotes do sistema
+# Definir diretório de trabalho
+WORKDIR /home/shiny-app
+
+# Instalar dependências do sistema
 RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     libssl-dev \
@@ -13,18 +16,21 @@ RUN apt-get update && apt-get install -y \
     libproj-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Definir diretório de trabalho
-WORKDIR /home/shiny-app
+# Instalar o pacote 'renv' e restaurar pacotes
+RUN R -e "install.packages('renv', repos='https://cran.rstudio.com/')"
 
-# Copiar arquivos do app para o container
+# Copiar arquivos do aplicativo
 COPY . /home/shiny-app
 
-# Instalar {renv} e restaurar pacotes do R
-RUN R -e "install.packages('renv', repos='https://cran.rstudio.com/')"
+# Ajustar permissões para o usuário Shiny
+RUN chown -R shiny:shiny /home/shiny-app
+
+# Restaurar pacotes do R usando renv
+USER shiny
 RUN R -e "renv::restore()"
 
-# Expor a porta do Shiny
-EXPOSE 3838
+# Expor a porta correta (Railway pode precisar da 8080)
+EXPOSE 8080
 
-# Rodar o aplicativo
-CMD ["R", "-e", "shiny::runApp('/home/shiny-app')"]
+# Rodar o aplicativo (ajuste a porta caso necessário)
+CMD ["R", "-e", "shiny::runApp('/home/shiny-app', host='0.0.0.0', port=8080)"]
