@@ -1,6 +1,7 @@
 
 
 options(shiny.maxRequestSize=100000*1024^2) 
+options(shinyapps.timeout = 1200) 
 
 zero_filtro <<- 0
 
