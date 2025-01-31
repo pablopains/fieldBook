@@ -1,4 +1,4 @@
-# Usar imagem base do Shiny com R
+# Usar a imagem base do Shiny com R
 FROM rocker/shiny:latest
 
 # Definir diretório de trabalho
@@ -16,10 +16,10 @@ RUN apt-get update && apt-get install -y \
     libproj-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Instalar o pacote 'renv' e restaurar pacotes
+# Instalar o pacote 'renv'
 RUN R -e "install.packages('renv', repos='https://cran.rstudio.com/')"
 
-# Copiar arquivos do aplicativo
+# Copiar os arquivos do aplicativo e o renv.lock
 COPY . /home/shiny-app
 
 # Ajustar permissões para o usuário Shiny
