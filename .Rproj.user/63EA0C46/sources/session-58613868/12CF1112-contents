@@ -8,7 +8,7 @@ WORKDIR /home/shiny-app
 COPY . /home/shiny-app
 
 # Instalar pacotes necessários
-RUN R -e "install.packages(c('shiny', 'dplyr', 'readr', 'shinydashboard', 'shinyWidgets', 'stringr', 'rmarkdown', 'knitr'), dependencies=TRUE, repos='https://cran.rstudio.com/')"
+RUN R -e "install.packages(c('shiny', 'dplyr', 'readr', 'shinydashboard', 'stringr', 'rmarkdown', 'knitr'), dependencies=TRUE, repos='https://cran.rstudio.com/')"
 
 # Expor a porta do Shiny
 EXPOSE 3838
