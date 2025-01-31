@@ -1,21 +1,17 @@
-# Usar imagem base com R e Shiny pré-instalados
+# Usar uma imagem base com R e Shiny pré-instalados
 FROM rocker/shiny:latest
 
-# Definir o diretório de trabalho no contêiner
+# Definir o diretório de trabalho dentro do contêiner
 WORKDIR /home/shiny-app
-
-# Instalar dependências do sistema para pacotes do R
-RUN apt-get update && apt-get install -y \
-    libcurl4-openssl-dev \
-    libssl-dev \
-    libxml2-dev \
-    && rm -rf /var/lib/apt/lists/*
 
 # Copiar o código do app para o contêiner
 COPY . /home/shiny-app
 
-# Instalar pacotes do R (incluindo o Shiny)
-RUN R -e "install.packages(c('shiny', 'ggplot2', 'dplyr'), dependencies=TRUE)"
+# Instalar pacotes necessários
+RUN R -e "install.packages(c('shiny'), dependencies=TRUE)"
 
-# Expor a porta usada pelo Shiny
-EXPOSE
+# Expor a porta do Shiny
+EXPOSE 3838
+
+# Definir comando para rodar o app
+CMD ["R", "-e", "shiny::runApp('/home/shiny-app', host='0.0.0.0', port=3838)"]
