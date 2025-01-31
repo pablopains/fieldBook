@@ -29,6 +29,8 @@ RUN chown -R shiny:shiny /home/shiny-app
 USER shiny
 RUN R -e "renv::restore()"
 
+RUN R -e "install.packages('shiny', repos='https://cran.rstudio.com/')"
+
 # Expor a porta correta (Railway pode precisar da 8080)
 EXPOSE 8080
 
