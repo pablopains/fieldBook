@@ -5,7 +5,7 @@ account: pablopains2
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 13849793
-bundleId: 9730769
+bundleId: 9730809
 url: https://pablopains2.shinyapps.io/fieldBook/
 version: 1
 asMultiple: FALSE
