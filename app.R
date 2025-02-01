@@ -3278,8 +3278,7 @@ server <- function(input, output, session)
 
                                      
                                      gerafichas(coletas=occ[['taxonomicAlignment']], 
-                                                qtdefichaspagina=6, 
-                                                coletas,qtdefichaspagina=6,
+                                                qtdefichaspagina=6,
                                                 qtdemaxpaginasjuncao=1,
                                                 pastafichas=dir)
                                      
