@@ -1,7 +1,7 @@
 
 
 options(shiny.maxRequestSize=100000*1024^2) 
-options(shinyapps.timeout = 1200) 
+# options(shinyapps.timeout = 1200) 
 
 zero_filtro <<- 0
 
@@ -88,7 +88,7 @@ library(tidyverse)
 library(rmarkdown)
 library(knitr)
 library(data.table)
-
+library(downloader)
 
 
 {
@@ -3279,6 +3279,8 @@ server <- function(input, output, session)
                                      
                                      gerafichas(coletas=occ[['taxonomicAlignment']], 
                                                 qtdefichaspagina=6, 
+                                                coletas,qtdefichaspagina=6,
+                                                qtdemaxpaginasjuncao=1,
                                                 pastafichas=dir)
                                      
                                      

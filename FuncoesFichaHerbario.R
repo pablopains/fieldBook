@@ -105,7 +105,8 @@ agrupafichas<-function(qtdefichaspagina=6,pastafichas,qtdemaxpaginasjuncao=15)
              output_file=output_file_html,
              output_dir='fichas',
              intermediates_dir='fichas/tmp',
-             encoding="utf-8")
+             encoding="utf-8",
+             params = list(self_contained = FALSE, clean = TRUE))
       file.remove(file.juncao)
       file.copy(paste0(pastafichas,'/',output_file_html),paste0(pastafichas,'/',gsub('.html','.doc',output_file_html)),overwrite=TRUE)       
       txt.Rmd=NULL
@@ -131,7 +132,8 @@ agrupafichas<-function(qtdefichaspagina=6,pastafichas,qtdemaxpaginasjuncao=15)
            output_file=output_file_html,
            output_dir='fichas',
            intermediates_dir='fichas/tmp',
-           encoding="utf-8")
+           encoding="utf-8",
+           params = list(self_contained = FALSE, clean = TRUE))
     
     file.remove(file.juncao)
     
@@ -161,10 +163,14 @@ agrupafichas_tudo<-function(qtdefichaspagina=6,pastafichas)
          output_file='Fichas-Imprimir.html',
          output_dir='fichas',
          intermediates_dir='fichas/tmp',
-         encoding="utf-8")
+         encoding="utf-8",
+         params = list(self_contained = FALSE, clean = TRUE))
   
-  file.remove(file.juncao)
+  gc() 
   
+  if(file.exists(file.juncao)) file.remove(file.juncao)
+  
+  unlink("fichas/tmp", recursive = TRUE)  # Remove temporários
   
   rmd <- list.files(pastafichas,pattern = '*.Rmd', include.dirs = FALSE)
   if(length(rmd)>0){file.remove(paste0(pastafichas,'/',rmd))}

@@ -5,9 +5,9 @@ account: pablopains2
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 13849793
-bundleId: 9730809
+bundleId: 9733078
 url: https://pablopains2.shinyapps.io/fieldBook/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: .Rprofile|.Rprofile.RData|app_oficial2.R|app_old.R|Dockerfile|Dockerfile.Dockerfile|fichas/FichaHerbario_1.doc|fichas/FichaHerbario_1.html|fichas/fieldBook_Fichas.zip|nixpacks.toml|Procfile|R/Shiny/.Rprofile|R/Shiny/fichas/FichaHerbario_1.doc|R/Shiny/fichas/FichaHerbario_1.html|R/Shiny/fichas/fieldBook_Fichas.zip|renv.lock|renv.R
+ignoredFiles: .Rprofile|.Rprofile.RData|app_oficial2.R|app_old.R|Dockerfile|Dockerfile.Dockerfile|nixpacks.toml|Procfile|R/Shiny/.Rprofile|R/Shiny/fichas/FichaHerbario_1.doc|R/Shiny/fichas/FichaHerbario_1.html|R/Shiny/fichas/fieldBook_Fichas.zip|renv.lock|renv.R
